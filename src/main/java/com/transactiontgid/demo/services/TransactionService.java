@@ -31,9 +31,8 @@ public class TransactionService {
       float updateAmount = amount * (1 - company.getFee());
       company.setBalance(company.getBalance() + updateAmount);
     }
-    
+
     Transaction op = new Transaction(null, company, client, type, amount);
-    Transaction created = this.repository.save(op);
-    return created;
+    return this.repository.save(op);
   }
 }
