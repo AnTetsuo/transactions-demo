@@ -24,31 +24,26 @@ Table Clients {
 }
 
 Table Companies {
-id integer [pk]
-name string [not null]
-legal_person_registry string [unique]
-email string [not null]
-fee decimal [null]
-balance decimal [not null]
+  id integer [pk]
+  name string [not null]
+  legal_person_registry string [unique]
+  email string [not null]
+  fee decimal [null]
+  balance decimal [not null]
 }
 
 Table Transaction_Type {
-id integer [pk]
-string name [not null]
+  id integer [pk]
+  string name [not null]
 }
 
 Table Transactions {
-id integer
-company_id integer
-client_id integer
-type_id integer
-amount decimal [not null]
+  id integer 
+  company_id integer [ref: > Companies.id]
+  client_id integer [ref: > Clients.id]
+  type_id integer [ref: > Transaction_Type.id]
+  amount decimal [not null]
 }
-
-
-Ref: Companies.id > Transactions.company_id
-Ref: Clients.id > Transactions.client_id
-Ref: Transaction_Type.id > Transactions.type_id
 ```
 </details>
 
