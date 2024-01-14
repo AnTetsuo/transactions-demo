@@ -44,6 +44,7 @@ public class Company {
     this.email = email;
     this.fee = fee;
     this.transactions = transactions;
+    this.balance = balance;
   }
 
   public Long getId() {
