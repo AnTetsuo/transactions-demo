@@ -19,8 +19,4 @@ public class CompanyController {
     this.service = companyService;
   }
 
-  @GetMapping
-  public ResponseEntity<List<Company>> check() {
-    return ResponseEntity.ok(this.service.getHello());
-  }
 }
