@@ -16,7 +16,7 @@ public class Company {
   private Long id;
   @Column(nullable = false)
   private String name;
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String legalPersonRegistry;
 
   @Column(nullable = false)
