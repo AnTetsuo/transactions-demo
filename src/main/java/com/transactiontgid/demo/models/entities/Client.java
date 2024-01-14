@@ -1,11 +1,14 @@
 package com.transactiontgid.demo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "Clients")
@@ -24,14 +27,20 @@ public class Client {
   @Column(nullable = false)
   private String email;
 
+  @OneToMany(mappedBy = "client")
+  @JsonIgnore
+  private List<Transaction> transactions;
+
   public Client() {
   }
 
-  public Client(Long id, String name, String naturalPersonRegistry, String email) {
+  public Client(Long id, String name, String naturalPersonRegistry, String email,
+      List<Transaction> transactions) {
     this.id = id;
     this.name = name;
     this.naturalPersonRegistry = naturalPersonRegistry;
     this.email = email;
+    this.transactions = transactions;
   }
 
   public Long getId() {
@@ -64,5 +73,14 @@ public class Client {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public List<Transaction> getTransactions() {
+    return transactions;
+  }
+
+  public void setTransactions(
+      List<Transaction> transactions) {
+    this.transactions = transactions;
   }
 }
