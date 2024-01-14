@@ -29,12 +29,12 @@ public class Transaction {
   @JoinColumn(name = "type", nullable = false)
   private TransactionType type;
   @Column(nullable = false)
-  private Double amount;
+  private Float amount;
 
   public Transaction() {
   }
 
-  public Transaction(Long id, Company company, Client client, TransactionType type, Double amount) {
+  public Transaction(Long id, Company company, Client client, TransactionType type, Float amount) {
     this.id = id;
     this.company = company;
     this.client = client;
@@ -74,11 +74,11 @@ public class Transaction {
     this.type = type;
   }
 
-  public Double getAmount() {
+  public Float getAmount() {
     return amount;
   }
 
-  public void setAmount(Double amount) {
+  public void setAmount(Float amount) {
     this.amount = amount;
   }
 }

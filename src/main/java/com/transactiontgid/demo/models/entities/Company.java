@@ -27,7 +27,7 @@ public class Company {
   private Float fee;
 
   @Column(nullable = false)
-  private Double balance;
+  private Float balance;
 
   @OneToMany(mappedBy = "company")
   @JsonIgnore
@@ -37,7 +37,7 @@ public class Company {
   }
 
   public Company(Long id, String name, String legalPersonRegistry, String email, Float fee,
-      Double balance, List<Transaction> transactions) {
+      Float balance, List<Transaction> transactions) {
     this.id = id;
     this.name = name;
     this.legalPersonRegistry = legalPersonRegistry;
@@ -87,11 +87,11 @@ public class Company {
     this.fee = fee;
   }
 
-  public Double getBalance() {
+  public Float getBalance() {
     return balance;
   }
 
-  public void setBalance(Double balance) {
+  public void setBalance(Float balance) {
     this.balance = balance;
   }
 
