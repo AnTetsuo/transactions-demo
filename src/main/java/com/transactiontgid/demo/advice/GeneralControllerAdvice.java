@@ -7,6 +7,7 @@ import com.transactiontgid.demo.exceptions.InvalidLegalRegistry;
 import com.transactiontgid.demo.exceptions.InvalidNaturalRegistry;
 import com.transactiontgid.demo.exceptions.InvalidTypeException;
 import com.transactiontgid.demo.exceptions.ResourceConflictException;
+import com.transactiontgid.demo.utils.WebHookTrigger;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GeneralControllerAdvice {
+  private final WebHookTrigger trigger = new WebHookTrigger();
 
   @ExceptionHandler({ClientNotFoundException.class})
   public ResponseEntity<String> clientNotFound(ClientNotFoundException ex) {
@@ -31,6 +33,7 @@ public class GeneralControllerAdvice {
 
   @ExceptionHandler({InsufficientFundsException.class})
   public ResponseEntity<String> insufficientFunds(InsufficientFundsException ex) {
+    trigger.sendHook(ex);
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
   }
 
