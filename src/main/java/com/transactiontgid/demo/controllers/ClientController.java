@@ -28,7 +28,7 @@ public class ClientController {
 
   @GetMapping
   public ResponseEntity<ClientDTO> getClientByNaturalRegistry(
-      @RequestBody NaturalRegistryDTO payload) {
+      @Valid @RequestBody NaturalRegistryDTO payload) {
     Client user = this.service.getByNaturalRegistry(payload.naturalRegistry());
     ClientDTO client = new ClientDTO(user.getName(), user.getEmail(),
         user.getNaturalPersonRegistry());
