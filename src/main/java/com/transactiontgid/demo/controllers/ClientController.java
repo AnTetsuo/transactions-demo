@@ -5,6 +5,7 @@ import com.transactiontgid.demo.dtos.CreateClientDTO;
 import com.transactiontgid.demo.dtos.NaturalRegistryDTO;
 import com.transactiontgid.demo.models.entities.Client;
 import com.transactiontgid.demo.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class ClientController {
 
   @PostMapping
   public ResponseEntity<ClientDTO> createClient(
-      @RequestBody CreateClientDTO payload
+      @Valid @RequestBody CreateClientDTO payload
   ) {
     Client entry = this.service.createClient(payload);
     ClientDTO created = new ClientDTO(entry.getName(), entry.getEmail(),

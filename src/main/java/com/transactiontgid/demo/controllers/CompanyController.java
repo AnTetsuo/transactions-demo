@@ -5,6 +5,7 @@ import com.transactiontgid.demo.dtos.CreateCompanyDTO;
 import com.transactiontgid.demo.dtos.LegalRegistryDTO;
 import com.transactiontgid.demo.models.entities.Company;
 import com.transactiontgid.demo.services.CompanyService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class CompanyController {
 
   @PostMapping
   public ResponseEntity<CompanyDTO> createCompany(
-      @RequestBody CreateCompanyDTO payload
+      @Valid @RequestBody CreateCompanyDTO payload
   ) {
     Company entry = this.service.createCompany(payload);
     var res = new CompanyDTO(
