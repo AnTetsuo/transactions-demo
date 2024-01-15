@@ -20,12 +20,6 @@ public class ClientService {
   public ClientService(ClientRepository clientRepository) {
     this.repository = clientRepository;
   }
-
-  public Client getById(long id) {
-    Optional<Client> source = this.repository.findById(id);
-    return source.orElseThrow(ClientNotFoundException::new);
-  }
-
   public Client getByNaturalRegistry(String cpf) {
     if (!validations.validateNaturalRegistry(cpf)) {
       throw new InvalidNaturalRegistry();

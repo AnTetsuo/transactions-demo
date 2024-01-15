@@ -21,11 +21,6 @@ public class CompanyService {
     this.repository = companyRepository;
   }
 
-  public Company getById(long id) {
-    Optional<Company> source = this.repository.findById(id);
-    return source.orElseThrow(CompanyNotFoundException::new);
-  }
-
   public Company getByLegalPersonRegistry(String cnpj) {
     if (!validations.validateLegalRegistry(cnpj)) {
       throw new InvalidLegalRegistry();
