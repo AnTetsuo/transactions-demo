@@ -28,7 +28,7 @@ public class CompanyController {
 
   @GetMapping
   public ResponseEntity<CompanyDTO> getCompanyByCnpj(
-      @RequestBody LegalRegistryDTO payload
+     @Valid @RequestBody LegalRegistryDTO payload
   ) {
     Company company = this.service
         .getByLegalPersonRegistry(payload.legalRegistry());
