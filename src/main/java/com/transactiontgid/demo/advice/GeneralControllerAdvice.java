@@ -6,6 +6,7 @@ import com.transactiontgid.demo.exceptions.InsufficientFundsException;
 import com.transactiontgid.demo.exceptions.InvalidLegalRegistry;
 import com.transactiontgid.demo.exceptions.InvalidNaturalRegistry;
 import com.transactiontgid.demo.exceptions.InvalidTypeException;
+import com.transactiontgid.demo.exceptions.ResourceConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -44,6 +45,10 @@ public class GeneralControllerAdvice {
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
   }
 
+  @ExceptionHandler({ResourceConflictException.class})
+  public ResponseEntity<String> collisionExc(ResourceConflictException ex) {
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+  }
   @ExceptionHandler({Exception.class})
   public ResponseEntity<String> broadException() {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
