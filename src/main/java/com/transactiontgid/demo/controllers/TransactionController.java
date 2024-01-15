@@ -11,6 +11,7 @@ import com.transactiontgid.demo.services.CompanyService;
 import com.transactiontgid.demo.services.TransactionService;
 import com.transactiontgid.demo.services.TransactionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,14 +38,15 @@ public class TransactionController {
   }
 
   @PostMapping()
-  public ResponseEntity<TransactionDTO> createTransaction(@RequestBody CreateTransactionDTO payload) {
+  public ResponseEntity<TransactionDTO> createTransaction(
+      @RequestBody CreateTransactionDTO payload) {
     Company company = this.companyServ.getById(payload.company());
     Client client = this.clientServ.getById(payload.client());
     TransactionType type = this.typeServ.getById(payload.type());
     Float amount = payload.amount();
     Transaction created = this.transactionServ.create(company, client, type, amount);
-    return ResponseEntity.ok(
-        new TransactionDTO(created.getCompanyId().getName(), created.getClientId().getName(),
-            created.getTypeId().getName(), created.getAmount()));
+    TransactionDTO operation = new TransactionDTO(created.getCompanyId().getName(),
+        created.getClientId().getName(), created.getTypeId().getName(), created.getAmount());
+    return ResponseEntity.status(HttpStatus.CREATED).body(operation);
   }
 }
