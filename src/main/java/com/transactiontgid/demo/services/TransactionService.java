@@ -20,19 +20,22 @@ public class TransactionService {
   }
 
   public Transaction create(Company company, Client client, TransactionType type, Float amount) {
-    if (amount * (1 + company.getFee()) > company.getBalance()) {
+    String op = type.getName();
+    Float balance = company.getBalance();
+    Float fee = company.getFee();
+    if (op.equals("withdraw") && amount * (1 + fee) > balance) {
       throw new InsufficientFundsException();
     }
 
-    if (type.getName().equals("withdraw")) {
-      float updateAmount = amount * (1 + company.getFee());
-      company.setBalance(company.getBalance() - updateAmount);
+    if (op.equals("withdraw")) {
+      float updateAmount = amount * (1 + fee);
+      company.setBalance(balance - updateAmount);
     } else {
-      float updateAmount = amount * (1 - company.getFee());
-      company.setBalance(company.getBalance() + updateAmount);
+      float updateAmount = amount * (1 - fee);
+      company.setBalance(balance + updateAmount);
     }
 
-    Transaction op = new Transaction(null, company, client, type, amount);
-    return this.repository.save(op);
+    Transaction transaction = new Transaction(null, company, client, type, amount);
+    return this.repository.save(transaction);
   }
 }
